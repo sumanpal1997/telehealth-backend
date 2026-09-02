@@ -1,0 +1,32 @@
+// use prisma-next
+
+enum UserRole {
+  PATIENT
+  DOCTOR
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  role      UserRole
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+
+  patientAppointments Appointment[] @relation("PatientAppointments")
+  doctorAppointments  Appointment[] @relation("DoctorAppointments")
+}
+
+model Appointment {
+  id        Int      @id @default(autoincrement())
+  patientId Int
+  doctorId  Int
+  startsAt  TimestamptzString
+  status    String
+
+  patient User @relation("PatientAppointments", fields: [patientId], references: [id])
+  doctor  User @relation("DoctorAppointments", fields: [doctorId], references: [id])
+
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+}
