@@ -9,6 +9,7 @@ model User {
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
+  passwordHash String?
   role      UserRole
   createdAt TimestamptzString @default(now())
   updatedAt temporal.updatedAtString()
