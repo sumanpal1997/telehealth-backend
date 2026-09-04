@@ -1,10 +1,4 @@
-import {
-  IsEmail,
-  IsIn,
-  IsOptional,
-  IsString,
-  MinLength,
-} from 'class-validator';
+import { IsEmail, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class UpdateUserDto {
   @IsOptional()
@@ -17,6 +11,7 @@ export class UpdateUserDto {
   email?: string;
 
   @IsOptional()
-  @IsIn(['PATIENT', 'DOCTOR'])
-  role?: 'PATIENT' | 'DOCTOR';
+  @IsString()
+  @MinLength(6)
+  password?: string;
 }
